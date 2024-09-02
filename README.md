@@ -18,7 +18,7 @@ This is a 2-day Ph.D. workshop on the application of deep neural networks as a g
 ## Class enrollment on the [Nuvolos Cloud](https://nuvolos.cloud/)
 
 * All lecture materials (slides, codes, and further readings) will be distributed via the [Nuvolos Cloud](https://nuvolos.cloud/).
-* To enroll in this class, please click on this [enrollment key](https://app.nuvolos.cloud/enroll/class/VCHjgGm_ovs), and follow the steps.
+* To enroll in this class, please click on this [enrollment key](https://app.nuvolos.cloud/enroll/class/c7Jt2zmJ4iM), and follow the steps.
 
 
 ### Novolos Support
