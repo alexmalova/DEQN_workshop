@@ -1,0 +1,93 @@
+# --------------------------------------------------------------------------- #
+# State variables
+# --------------------------------------------------------------------------- #
+states:
+  # ------------------------------------------------------------------------- #
+  # Economic state
+  # ------------------------------------------------------------------------- #
+  - name: kx  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 5.2748 #0.8862
+        stddev: 0.0
+
+
+  # ------------------------------------------------------------------------- #
+  # Time state variable
+  # ------------------------------------------------------------------------- #
+  - name: taux  # Computational time
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.  # Starting year is 2015
+        stddev: 0.
+
+
+# --------------------------------------------------------------------------- #
+# Policy variables
+# --------------------------------------------------------------------------- #
+policies:
+  - name: invy  # Investment policy
+    activation: tf.keras.activations.softplus
+
+  - name: cony  # Consumption policy
+    activation: tf.keras.activations.softplus
+    
+  - name: kmny  # production capital
+    activation: tf.keras.activations.softplus
+    
+  - name: lmny  # production capital
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+      upper: 1.0
+      penalty_upper: 0.
+    
+  - name: lambdKy  # capital budget
+    activation: tf.keras.activations.linear
+    
+  - name: lambdNy  # labor budget
+    activation: tf.keras.activations.linear
+
+
+
+definitions:
+  # ------------------------------------------------------------------------- #
+  # Real and computational time
+  # ------------------------------------------------------------------------- #
+  - name: tau2t  # Scale back from tau to t
+  - name: tau2tauplus  # Update tau to tau+1
+
+  # ------------------------------------------------------------------------- #
+  # Exogenous parameters
+  # ------------------------------------------------------------------------- #
+  - name: tfp  # TFP
+  - name: tfp_tilde
+  - name: gr_tfp  # Growth rate of TFP
+  - name: lab  # Labor
+  - name: gr_lab  # Annual growth rate of labor
+  - name: betat  # Growth adjusted discout factor
+
+
+  # ------------------------------------------------------------------------- #
+  # Economic variables
+  # ------------------------------------------------------------------------- #
+
+  - name: lambd  # Lagrange multiplier wrt. the budget constraint
+  - name: ygross  # Gross production
+  - name: energy
+  - name: energy_dt
+  - name: energy_cl
+
+  # ------------------------------------------------------------------------- #
+  # First-derivatives of the value function
+  # ------------------------------------------------------------------------- #
+  - name: dvdk  # wrt. k
+
+  # ------------------------------------------------------------------------- #
+  # State variables in period t+1
+  # ------------------------------------------------------------------------- #
+  - name: kplus  # Capital stock tomorrow
+ 

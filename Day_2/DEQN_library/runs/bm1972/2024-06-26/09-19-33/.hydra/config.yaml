@@ -1,0 +1,60 @@
+constants:
+  constants:
+    alpha: 0.36
+    beta: 0.99
+    delta: 1.0
+    k_lb: 0.1
+    k_ub: 1.0
+net:
+  layers:
+  - hidden:
+      units: 50
+      type: dense
+      activation: relu
+      init_scale: 1.0
+  - hidden:
+      units: 50
+      type: dense
+      activation: relu
+      init_scale: 1.0
+  - output:
+      type: dense
+      activation: sigmoid
+      init_scale: 0.1
+optimizer:
+  optimizer: Adam
+  learning_rate: 0.001
+  clipvalue: 1.0
+run:
+  N_sim_batch: 512
+  N_episode_length: 128
+  N_epochs_per_episode: 1
+  N_minibatch_size: 64
+  N_episodes: 500
+  keras_precision: float32
+variables:
+  states:
+  - name: K_t
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 0.1
+        maxval: 1.0
+  policies:
+  - name: s_t
+  definitions:
+  - name: Y_t
+  - name: K_tplus1
+  - name: C_t
+  - name: R_tplus1
+  - name: k_compute_infty
+  - name: Kplus_compute_analytic
+  - name: c_compute
+seed: 42
+STARTING_POINT: LATEST
+CHECKPOINT_INTERVAL: 2
+MAX_TO_KEEP_NUMBER: 10
+MODEL_NAME: bm1972
+initialize_each_episode: true
+error_filename: error_file.txt
+enable_check_numerics: false

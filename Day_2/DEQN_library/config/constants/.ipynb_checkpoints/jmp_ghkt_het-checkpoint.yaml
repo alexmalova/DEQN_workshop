@@ -1,0 +1,108 @@
+constants:
+########### DICE version specific parameters ##################################
+    Tstep: 1  # Years in one time step
+    Version: '2016'  #  Version of DICE 2007 or 2016 or cjl
+
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    L0: 5230.29 #7403  # World population in 2005 [millions]
+    Linfty: 11500  # Asymptotic world population [millions]
+    deltaL: 0.012 #0.0268  # Rate of convergence to asymptotic world population
+    varrho_d0: 0.43
+    varrho_dinfty: 0.7
+    delta_varrho_d: 0.012
+  # Total factor productivity in effective labor units
+    A0hat: 0.007191 #0.00709246 #0.01185792  # Initial level of TFP
+    gA0hat: 0.025  # Initial growth rate of TFP
+    varphi_a: 1.6
+    varphi_d: 0.35
+  # TFP for green sector in advanced
+    a3_a0: 0.016416 # initial green TFP
+    gA3_a: 0.015 # growth rate of the dirty TFP 
+  # TFP for dirty sector advanced
+    a2_a0: 0.051155 # initial dirty TFP
+    gA2_a: 0.013 # growth rate of the dirty TFP 
+    
+  # TFP for green sector in developing
+    a3_d0: 0.01457 # initial green TFP
+    gA3_d: 0.001 # growth rate of the dirty TFP 
+  # TFP for dirty sector developing
+    a2_d0: 0.008155 # initial dirty TFP
+    gA2_d: 0.01 # growth rate of the dirty TFP 
+    
+    
+  # Stochastic TFP
+    varrho0: 0.035  # Gaussian innovation scale in the stochastic TFP shock
+    arval: 0.775  # Persistency of the long-run risk
+  # Land emissions
+    ELand0: 0.00070922  # Emissions form land in 2005 (1000GtC per year)
+    deltaLand: 0.023  # Decline rate of land amissions (per year)
+  # Land emissions
+    fex0: 0.5  # Forcing of nonCO2 GHG (Wm-2) in 2000
+    fex1: 1.0  # Forcing of nonCO2 GHG (Wm-2) in 2100
+    Tyears: 110.  # Number of years before 2100
+ # Energy
+    kappa2: 0.725
+    kappa3: 0.275
+    rhoCES: -0.053  #CES aggregator, elasticity
+  # Carbon intensity
+    a: 8
+    b: -0.05
+#   # Carbon intensity rcp45
+#     sigma0: 0.00089  # Initial carbon instensity
+#     deltaSigma: 0.06  # Decline rate of decarbonization per year
+#     gSigma0: -0.004  # Initial growth of carbon intensity per year
+  # Carbon intensity rcp60
+    sigma0: 0.000846  # Initial carbon instensity
+    deltaSigma: 0.03  # Decline rate of decarbonization per year
+    gSigma0: -0.001  # Initial growth of carbon intensity per year
+########### Economic parameters ###############################################
+  # Utility function
+    rho0: 0.015 # Pure rate of time preference
+  # Epstein-Zin preferences
+    psi0: 1.5  # Inter-temporal elasticity of substitution
+    gamma0: 10.0  # Risk-aversion parameter
+  # Production function
+    alpha: 0.3  # Capital elasticity
+    delta: 0.1  # Annual capital depreciation rate
+    nu: 0.04
+    phi_a: 0.65
+    phi_d: 0.35
+########### Climate parameters ################################################
+  # Damage function
+    pi1_a: 0.  # Climate damage factor coefficient
+    pi2_a: 0.00236  # Climate damage factor coefficient
+    pi1_d: 0.  # Climate damage factor coefficient
+    pi2_d: 0.00764  # Climate damage factor coefficient
+
+
+########### Doris new carbon mass #############################################
+    b12_: 0.054  # Rate of carbon diffusion from atmosphere to upper ocean
+    b23_: 0.0082  # Rate of carbon diffusion from upper ocean to lower ocean
+    MATeq: 0.607  # Equilibrium mass of carbon in the Atmosphere
+    MUOeq: 0.489  # Equilibrium mass of carbon in the upper ocean
+    MLOeq: 1.281  # Equilibrium mass of carbon in the lower ocean
+
+########### Doris new temperature #############################################
+    c1_: 0.137  # Temperature coefficient
+    c3_: 0.73  # Temperature coefficient
+    c4_: 0.00689  # Temperature coefficient
+    f2xco20: 3.45  # Radiative forcing parameter
+    t2xco20: 3.25  # Equilibrium climate temperature
+    MATbase: 0.607  # Preindustrial atmospheric carbon concentration
+
+########## Initial states #####################################################
+    k_a0: 3.9358 #1.4685  # K0/(A0L0)
+    k_d0: 0.3805 #1.4685  # K0/(A0L0)   
+    MAT0: 0.793 # [1000 GtC] Doris calibration
+    MUO0: 0.591  # [1000 GtC] Doris calibration
+    MLO0: 1.311  # [1000 GtC] Doris calibration
+    TAT0: 0.48  # [oC relative to the preindustrial] Doris calibration
+    TOC0: 0.112  # [oC relative to the preindustrial] Doris calibration
+    zeta_log0: 0.  # Initial stochastic shock on production in log
+    tau0: 0.  # Initial time period (corresponding to 2015)
+
+

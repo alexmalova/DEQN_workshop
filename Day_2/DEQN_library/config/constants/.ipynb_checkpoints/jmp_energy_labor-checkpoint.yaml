@@ -1,0 +1,54 @@
+constants:
+########### DICE version specific parameters ##################################
+    Tstep: 1  # Years in one time step
+    Version: '2016'  #  Version of DICE 2007 or 2016 or cjl
+
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    L0: 5242.35  #3359.9868  # World population in 2005 [millions]
+    Linfty: 11500  # Asymptotic world population [millions]
+    deltaL: 0.012  # Rate of convergence to asymptotic world population
+  # Total factor productivity in effective labor units
+    A0hat: 0.0063252 #0.00709929 #0.00604437 #0.00304515 #0.02183642 #0.5485 #0.02183  # Initial level of TFP
+    gA0hat: 0.01  # Initial growth rate of TFP
+  # energy
+#     e0: 1.334
+#     gen: 0.01
+#     edt0: 0.2251
+#     ecl0: 0.04758
+#     gedt: 0.001
+#     gecl: 0.001
+    adt0: 24.96 #0.0789
+    acl0: 1.871 #0.00591
+    
+    gadt: 0.001
+    gacl: 0.001
+    
+    pi_kdt: 0.0464
+    pi_kcl: 0.0277
+    pi_ldt: 0.0148
+    pi_lcl: 0.0088
+    
+    kappa1: 0.5
+    kappa2: 0.5
+    
+
+########### Economic parameters ###############################################
+  # Utility function
+    rho0: 0.015 # Pure rate of time preference
+    rhoCES: 1.5 #CES elasticity
+  # Epstein-Zin preferences
+    psi0: 1.5  # Inter-temporal elasticity of substitution
+  # Production function
+    alpha: 0.3  # Capital elasticity
+    delta: 0.1  # Annual capital depreciation rate
+    nu: 0.04
+    alphaE: 0.6 #capital share in energy production
+
+########## Initial states #####################################################
+    k0: 4.5  # K0/(A1L0)
+    tau0: 0.  # Initial time period (corresponding to 2015)
+

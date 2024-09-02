@@ -1,0 +1,99 @@
+constants:
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    N0: 3.03  # World population in 1960 [billion]
+    Ninfty: 11.5  # Asymptotic world population [billion]
+    deltaN: 0.012  # Rate of convergence to asymptotic world population
+ 
+  # RD
+    muymn: 0.523 #elasticity of labor productivity in manufacturing
+    muydt: 0.372 #elasticity of labor productivity in dirty energy
+    muycl: 0.193 #elasticity of labor productivity in clean energy
+    
+    lambdamn: 0.05 #maximum TFP growth
+    lambdadt: 0.05 #maximum TFP growth
+    lambdacl: 0.05 #maximum TFP growth
+
+  # Land emissions
+    ELand0: 0.00127 # Emissions form land in 1960 (1000GtC per year)
+    deltaLand: 0.023  # Decline rate of land amissions (per year)
+    
+  # Land emissions
+    fex0: 0.25  # Forcing of nonCO2 GHG (Wm-2) in 1960
+    fex1: 1.0  # Forcing of nonCO2 GHG (Wm-2) in 2100
+    Tyears: 140.  # Number of years before 2100
+
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+#%$#%$#%$#%$#%$#%$#%$#%$ BEGIN HELPER PARTS #%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+
+
+#  # Helper fiunctions clean
+#     ech0: 0.25 # Initial level of clean energy
+#     gech0: 0.0374 # growth of clean energy
+    
+#  # Helper fiunctions dirty
+#     edh0: 3. #initial level of dirty energy
+#     gedh0: 0.0245 # growth of dirty energy
+    
+#  # Helper fiunctions world gdp
+#     ymnh0: 12. #initial level of dirty energy
+#     gymnh0: 0.0338 # growth of dirty energy
+    
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+#%$#%$#%$#%$#%$#%$#%$#%$ END HELPER PARTS #%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+    
+    
+
+########### Economic parameters ###############################################
+  # Utility function
+    rho: 0.015 # Pure rate of time preference
+    
+  # Preferences
+    psi: 0.5  # Inter-temporal elasticity of substitution
+
+  # Production function
+    alphaK: 0.3  # Capital elasticity
+    alphaE: 0.04  # Energy elasticity
+    alpha: 0.6 # capital share oin energy production
+    delta: 0.1  # Annual capital depreciation rate
+    rhoCES: 1.5 # CES elasticity
+    
+########### Damage function ################################################
+    pi1: 0.  # Climate damage factor coefficient
+    pi2: 0.00236  # Climate damage factor coefficient
+
+########### Carbon mass #############################################
+    b12_: 0.054  # Rate of carbon diffusion from atmosphere to upper ocean
+    b23_: 0.0082  # Rate of carbon diffusion from upper ocean to lower ocean
+    MATeq: 0.607  # Equilibrium mass of carbon in the Atmosphere
+    MUOeq: 0.489  # Equilibrium mass of carbon in the upper ocean
+    MLOeq: 1.281  # Equilibrium mass of carbon in the lower ocean
+
+########### Temperature #############################################
+    c1_: 0.137  # Temperature coefficient
+    c3_: 0.73  # Temperature coefficient
+    c4_: 0.00689  # Temperature coefficient
+    f2xco20: 3.45  # Radiative forcing parameter
+    t2xco20: 3.25  # Equilibrium climate temperature
+    MATbase: 0.607  # Preindustrial atmospheric carbon concentration
+
+########## Initial states economy #####################################################
+    k0: 22.38
+    Amn0: 4.04 #6.74
+    Adt0: 1.584 #2.64
+    Acl0: 0.216 #0.36
+    
+########## Initial states climate #####################################################   
+    MAT0: 0.723 # [1000 GtC] 1960
+    MUO0: 0.555  # [1000 GtC] 1960
+    MLO0: 1.301  # [1000 GtC] 1960
+    TAT0: 0.64  # [oC relative to the preindustrial] 1960
+    TOC0: 0.15  # [oC relative to the preindustrial] 1960
+    tau0: 0.  # Initial time period (corresponding to 1960)
+
+

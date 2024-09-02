@@ -1,0 +1,52 @@
+constants:
+########### DICE version specific parameters ##################################
+    Tstep: 1  # Years in one time step
+    Version: '2016'  #  Version of DICE 2007 or 2016 or cjl
+
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    L0: 7403  # World population in 2005 [millions]
+    Linfty: 11500  # Asymptotic world population [millions]
+    deltaL: 0.0268  # Rate of convergence to asymptotic world population
+  # Total factor productivity in effective labor units
+    A0hat: 0.010295  # Initial level of TFP
+    gA0hat: 0.0217  # Initial growth rate of TFP
+    deltaA: 0.005  # Rate of decline in growth of the productivity
+  # Stochastic TFP
+    varrho0: 0.035  # Gaussian innovation scale in the stochastic TFP shock
+    r0: 0.775  # Persistency of the long-run risk
+    varsigma0: 0.008  # Gaussian innocation scale in the long-run risk component
+
+########### Economic parameters ###############################################
+  # Utility function
+    rho0: 0.015  # Pure rate of time preference
+  # Epstein-Zin preferences
+    psi0: 1.5  # Inter-temporal elasticity of substitution
+    gamma0: 10.  # Risk-aversion parameter
+  # Production function
+    alpha: 0.3  # Capital elasticity
+    delta: 0.1  # Annual capital depreciation rate
+
+
+########## Initial states #####################################################
+    k0: 2.926  # K0/(A0L0)
+    zeta_log0: 0.  # Initial stochastic shock on production in log
+    zetatilde_log0: 0.  # Initial stochastic shock on production in log
+    chi0: 0.  # Initial normal random variable in the stochastic TFP shock
+    tau0: 0.  # Initial time period (corresponding to 2015)
+
+########## Lower and upper bounds of the uncertain parameters #################
+    UQflag: True
+  # Pure rate of time preference
+    rho_lower: 0.01
+    rho_upper: 0.02
+  # Risk-aversion
+    gamma_lower: 2.5
+    gamma_upper: 12.5
+  # Intertemporal elasticity of substitution
+    psi_lower: 1.2
+    psi_upper: 2.
+

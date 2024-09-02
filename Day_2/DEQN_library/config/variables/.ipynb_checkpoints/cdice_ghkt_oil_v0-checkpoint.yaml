@@ -1,0 +1,184 @@
+# --------------------------------------------------------------------------- #
+# State variables
+# --------------------------------------------------------------------------- #
+states:
+  # ------------------------------------------------------------------------- #
+  # Economic state
+  # ------------------------------------------------------------------------- #
+  - name: kx  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 2.926
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+
+  # ------------------------------------------------------------------------- #
+  # Climate states
+  # ------------------------------------------------------------------------- #
+  # Carbon mass
+  - name: MATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.89797
+        stddev: 0.0
+        # stddev: 0.05  # For deterministic
+  - name: MUOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.81589
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  - name: MLOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.80898
+        stddev: 0.
+        # stddev: 0.25  # For deterministic
+
+  # Temperature
+  - name: TATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.49
+        stddev: 0.
+        # stddev: 0.05  # For deterministic
+  - name: TOCx
+    init:
+     distribution: truncated_normal
+     kwargs:
+        mean: 0.378
+        stddev: 0.
+
+  # ------------------------------------------------------------------------- #
+  # Stochastic TFP states
+  # ------------------------------------------------------------------------- #
+  - name: zeta_logx  # TFP stochastic shock in log
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.
+        stddev: 0.
+
+
+  # ------------------------------------------------------------------------- #
+  # Time state variable
+  # ------------------------------------------------------------------------- #
+  - name: taux  # Computational time
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.  # Starting year is 2015
+        stddev: 0.
+
+
+# --------------------------------------------------------------------------- #
+# Policy variables
+# --------------------------------------------------------------------------- #
+policies:
+  - name: invy  # Investment policy
+    activation: tf.keras.activations.softplus
+
+  - name: cony  # Consumption policy
+    activation: tf.keras.activations.softplus
+
+  - name: vlogy  # Value function in log: vnorm_tilde = exp(vlog_tildey)
+    activation: tf.keras.activations.softplus
+    # activation: tf.keras.activations.linear
+
+  # # Mitigation policy in [0, 1]
+  # # 1 - muy >= 0 is ensured by an occasionally binding constraint; thus we
+  # # avoid punishing the neural net when muy does not support the bounds.
+  # # The below upper and lower bounds help the neural net.
+  # - name: muy
+  #   activation: tf.keras.activations.softplus
+  #   bounds:
+  #     lower: 0.
+  #     penalty_lower: 0.
+  #     upper: 1.0
+  #     penalty_upper: 0.
+
+  # Lagrange multipliers
+  - name: nuATy
+    # activation: tf.keras.activations.linear
+    activation: tf.keras.activations.softplus  # Known to be negative
+  - name: nuUOy
+    activation: tf.keras.activations.linear
+  - name: nuLOy
+    activation: tf.keras.activations.linear
+  - name: etaATy
+    activation: tf.keras.activations.linear
+  - name: etaOCy
+    activation: tf.keras.activations.linear
+
+definitions:
+  # ------------------------------------------------------------------------- #
+  # Real and computational time
+  # ------------------------------------------------------------------------- #
+  - name: tau2t  # Scale back from tau to t
+  - name: tau2tauplus  # Update tau to tau+1
+
+  # ------------------------------------------------------------------------- #
+  # Exogenous parameters
+  # ------------------------------------------------------------------------- #
+  - name: tfp  # TFP
+  - name: gr_tfp  # Growth rate of TFP
+  - name: lab  # Labor
+  - name: gr_lab  # Annual growth rate of labor
+  - name: betat  # Growth adjusted discout factor
+  - name: sigma  # Carbon intensity
+  - name: theta1  # Cost coefficient of carbon mitigation
+  - name: Eland  # Natural carbon emissions
+  - name: Fex  # External radiative forcing
+  - name: b12  # Mass of carbon transmission
+  - name: b23  # Mass of carbon transmission
+  - name: c1  # Mass of carbon transmission
+  - name: c3  # Mass of carbon transmission
+  - name: c4
+
+  # ------------------------------------------------------------------------- #
+  # Economic variables
+  # ------------------------------------------------------------------------- #
+  - name: zeta # Stochastic TFP schock on production
+  - name: vnorm # Normalized value function
+  - name: lambd  # Lagrange multiplier wrt. the budget constraint
+  # - name: lambd_mu  # KKT multiplier wrt. the budget constraint
+  # - name: Omega  # Damage function in Weitzman (2012)
+  # - name: dOmegadTAT  # The first derivative of the Weitzman's damage function
+  - name: Omega_Nordhaus  # Damage function in Nordhaus (2008)
+  - name: dOmegadTAT_Nordhaus  # The first derivative of the Nordhaus' damage function
+  # - name: Theta  # Mitigation cost function
+  # - name: Theta_prime  # The first derivative of the mitigation cost function
+  - name: ygross  # Gross production
+  - name: ynet  # Net production where the climate damage is considered
+  - name: Eind  # Industrial emission
+  # - name: carbontax  # Optimal carbon tax
+  - name: scc  # Social cost of carbon
+  - name: inv2ynet  # Ratio of investment to net output
+  - name: con2ynet  # Ratio of consumption to net output
+  # - name: Theta2ynet  # Ratio of mitigation expenditure to net output
+  - name: scc2ynet  # Ratio of the social cost of carbon to gross output
+
+  # ------------------------------------------------------------------------- #
+  # First-derivatives of the value function
+  # ------------------------------------------------------------------------- #
+  - name: dvdk_psi  # wrt. k
+  - name: dvdMAT_psi  # wrt. MAT
+  - name: dvdMUO_psi  # wrt. MUO
+  - name: dvdMLO_psi  # wrt. MLO
+  - name: dvdTAT_psi  # wrt. TAT
+  - name: dvdTOC_psi  # wrt. TOC
+
+  # ------------------------------------------------------------------------- #
+  # State variables in period t+1
+  # ------------------------------------------------------------------------- #
+  - name: kplus  # Capital stock tomorrow
+  - name: MATplus  # Mass of carbon in the atmosphere in period t+1
+  - name: MUOplus  # Mass of carbon in the upper ocean in period t+1
+  - name: MLOplus  # Mass of carbon in the lower ocean in period t+1
+  - name: TATplus  # Temperature in the atmosphere in period t+1
+  - name: TOCplus  # Temperature in the ocean in period t+1

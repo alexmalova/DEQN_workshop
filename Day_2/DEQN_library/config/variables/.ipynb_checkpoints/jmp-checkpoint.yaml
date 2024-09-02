@@ -1,0 +1,263 @@
+# --------------------------------------------------------------------------- #
+# State variables
+# --------------------------------------------------------------------------- #
+states:
+  # ------------------------------------------------------------------------- #
+  # Economic state
+  # ------------------------------------------------------------------------- #
+  - name: Kx  # Capital stock in period t 
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 22.38
+        stddev: 0.0
+  - name: Amnx  # Manufacturing TFP
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 4.04 #6.74
+        stddev: 0.0
+  - name: Adtx  # Manufacturing TFP
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.584 #2.64
+        stddev: 0.0
+  - name: Aclx  # Manufacturing TFP
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.216 #0.36
+        stddev: 0.0
+  
+  # ------------------------------------------------------------------------- #
+  # Climate states
+  # ------------------------------------------------------------------------- #
+#   - name: MATx
+#     init:
+#       distribution: truncated_normal
+#       kwargs:
+#         mean: 0.723
+#         stddev: 0.0
+#   - name: MUOx
+#     init:
+#       distribution: truncated_normal
+#       kwargs:
+#         mean: 0.555
+#         stddev: 0.0
+#   - name: MLOx
+#     init:
+#       distribution: truncated_normal
+#       kwargs:
+#         mean: 1.301
+#         stddev: 0.
+#   - name: TATx
+#     init:
+#       distribution: truncated_normal
+#       kwargs:
+#         mean: 0.64
+#         stddev: 0.
+#   - name: TOCx
+#     init:
+#      distribution: truncated_normal
+#      kwargs:
+#         mean: 0.15
+#         stddev: 0.
+
+  # ------------------------------------------------------------------------- #
+  # Time state variable
+  # ------------------------------------------------------------------------- #
+  - name: taux  # Computational time
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.  # Starting year is 1960
+        stddev: 0.
+
+
+# --------------------------------------------------------------------------- #
+# Policy variables
+# --------------------------------------------------------------------------- #
+policies:
+  - name: Kplusy  # Investment policy
+    activation: tf.keras.activations.softplus
+    
+# Sectoral capital
+    
+  - name: Kmny  # manufacturing capital policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+
+  - name: Kdty  # dirty energy capital policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+    
+  - name: Kcly  # clean energy capital policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+    
+# Sectoral labor
+    
+  - name: Lmny  # manufacturing labor policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+
+  - name: Ldty  # dirty energy labor policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+    
+  - name: Lcly  # clean energy labor policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+    
+  - name: LAmny  # manufacturing RD policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+
+  - name: LAdty  # dirty energy RD policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+    
+  - name: LAcly  # clean energy RD policy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+
+    
+# Sectoral TFP
+    
+  - name: Amnplusy  # manufacturing tfp +1 policy
+    activation: tf.keras.activations.softplus
+
+
+  - name: Adtplusy  # dirty energy tfp +1 policy
+    activation: tf.keras.activations.softplus
+
+    
+  - name: Aclplusy  # clean energy tfp +1 policy
+    activation: tf.keras.activations.softplus
+
+    
+#  Lagrange multipliers
+
+  - name: lambdy  # Consumption policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdmny  # manufacturing tfp policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambddty  # dirty energy tfp policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdcly  # clean energy tfp policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdNy  # Labor equality
+    activation: tf.keras.activations.linear
+
+  - name: lambdKy  # Capital equality
+    activation: tf.keras.activations.linear
+    
+#  Climate Lagrange multipliers
+#   - name: nuATy
+#     activation: tf.keras.activations.softplus  # Known to be negative
+#   - name: nuUOy
+#     activation: tf.keras.activations.linear
+#   - name: nuLOy
+#     activation: tf.keras.activations.linear
+#   - name: etaATy
+#     activation: tf.keras.activations.linear
+#   - name: etaOCy
+#     activation: tf.keras.activations.linear
+
+
+definitions:
+  # ------------------------------------------------------------------------- #
+  # Real and computational time
+  # ------------------------------------------------------------------------- #
+  - name: tau2t  # Scale back from tau to t
+  - name: tau2tauplus  # Update tau to tau+1
+
+  # ------------------------------------------------------------------------- #
+  # Exogenous parameters
+  # ------------------------------------------------------------------------- #
+
+  - name: lab  # Labor
+  - name: gr_lab  # Annual growth rate of labor
+  - name: beta  #  discout factor
+#   - name: sigma  # Carbon intensity
+#   - name: Eland  # Natural carbon emissions
+#   - name: Eind  # Industrial emission
+#   - name: Fex  # External radiative forcing
+#   - name: b11  # Mass of carbon transmission
+#   - name: b21  # Mass of carbon transmission
+#   - name: b12  # Mass of carbon transmission
+#   - name: b22  # Mass of carbon transmission
+#   - name: b32  # Mass of carbon transmission
+#   - name: b23  # Mass of carbon transmission
+#   - name: b33  # Mass of carbon transmission
+#   - name: c1  # Mass of carbon transmission
+#   - name: c3  # Mass of carbon transmission
+#   - name: c4
+
+  # ------------------------------------------------------------------------- #
+  # Economic variables
+  # ------------------------------------------------------------------------- #
+
+  - name: Con  # Lagrange multiplier wrt. the budget constraint
+  - name: Energy
+  - name: Energy_dt
+  - name: Energy_cl
+  - name: Ymn
+
+
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+#%$#%$#%$#%$#%$#%$#%$#%$ BEGIN HELPER PARTS #%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+
+#   - name: Energy_dt_helper
+#   - name: Energy_cl_helper
+#   - name: Ymn_helper
+  
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+#%$#%$#%$#%$#%$#%$#%$#%$ END HELPER PARTS #%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#
+#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$#%$
+
+  # ------------------------------------------------------------------------- #
+  # State variables in period t+1
+  # ------------------------------------------------------------------------- #
+#   - name: MATplus  # Mass of carbon in the atmosphere in period t+1
+#   - name: MUOplus  # Mass of carbon in the upper ocean in period t+1
+#   - name: MLOplus  # Mass of carbon in the lower ocean in period t+1
+#   - name: TATplus  # Temperature in the atmosphere in period t+1
+#   - name: TOCplus  # Temperature in the ocean in period t+1
+  # ------------------------------------------------------------------------- #
+  # Derivatives of the value function
+  # ------------------------------------------------------------------------- #
+  - name: dvdK
+  - name: dvdAmn
+  - name: dvdAdt
+  - name: dvdAcl
+#   - name: dvdMAT
+#   - name: dvdMUO
+#   - name: dvdMLO
+#   - name: dvdTAT
+#   - name: dvdTOC
+  

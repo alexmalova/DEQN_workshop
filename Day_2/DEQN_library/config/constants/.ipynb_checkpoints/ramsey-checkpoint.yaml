@@ -1,0 +1,33 @@
+constants:
+########### DICE version specific parameters ##################################
+    Tstep: 1  # Years in one time step
+    Version: '2016'  #  Version of DICE 2007 or 2016 or cjl
+
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    L0: 7403  # World population in 2005 [millions]
+    Linfty: 11500  # Asymptotic world population [millions]
+    deltaL: 0.0268  # Rate of convergence to asymptotic world population
+  # Total factor productivity in effective labor units
+    A0hat: 0.010295  # Initial level of TFP
+    gA0hat: 0.0217  # Initial growth rate of TFP
+    deltaA: 0.005  # Rate of decline in growth of the productivity
+
+########### Economic parameters ###############################################
+  # Utility function
+    rho0: 0.015 # Pure rate of time preference
+  # Epstein-Zin preferences
+    psi0: 0.5  # Inter-temporal elasticity of substitution
+    gamma0: 10.0  # Risk-aversion parameter
+  # Production function
+    alpha: 0.3  # Capital elasticity
+    delta: 0.1  # Annual capital depreciation rate
+    nu: 0.0
+
+########## Initial states #####################################################
+    k0: 1.69155  # K0/(A0L0)
+    tau0: 0.  # Initial time period (corresponding to 2015)
+

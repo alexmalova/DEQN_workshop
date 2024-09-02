@@ -1,0 +1,117 @@
+constants:
+########### DICE version specific parameters ##################################
+    Tstep: 1  # Years in one time step
+    Version: '2016'  #  Version of DICE 2007 or 2016 or cjl
+
+########### Numeric parameters ################################################
+    vartheta: 0.02  # Purely numeric parameter to transform time periods
+
+########### Exogenous processes ###############################################
+  # Population
+    L0: 7403  # World population in 2005 [millions]
+    Linfty: 11500  # Asymptotic world population [millions]
+    deltaL: 0.0268  # Rate of convergence to asymptotic world population
+  # Total factor productivity in effective labor units
+    A0hat: 0.010295  # Initial level of TFP
+    gA0hat: 0.0217  # Initial growth rate of TFP
+    deltaA: 0.005  # Rate of decline in growth of the productivity
+  # Stochastic TFP
+    varrho0: 3.5  # Gaussian innovation scale in the stochastic TFP shock
+    r0: 0.775  # Persistency of the long-run risk
+    varsigma0: 0.8  # Gaussian innocation scale in the long-run risk component
+  # Carbon intensity
+    sigma0: 0.0000955592  # Initial carbon instensity
+    deltaSigma: 0.001  # Decline rate of decarbonization per year
+    gSigma0: -0.0152  # Initial growth of carbon intensity per year
+  # Mitigation
+    theta2: 2.6  # Mitigation cost parameter
+    pback: 0.55  # Cost of backstop 2010 thousand USD per tCo2 2015
+    gback: 0.005  # Initial cost decline backstop cost per year
+    c2co2: 3.666  # Transformation from c to co2
+  # Land emissions
+    ELand0: 0.00070922  # Emissions form land in 2005 (1000GtC per year)
+    deltaLand: 0.023  # Decline rate of land amissions (per year)
+  # Land emissions
+    fex0: 0.5  # Forcing of nonCO2 GHG (Wm-2) in 2000
+    fex1: 1.0  # Forcing of nonCO2 GHG (Wm-2) in 2100
+    Tyears: 85.  # Number of years before 2100
+
+########### Economic parameters ###############################################
+  # Utility function
+    rho0: 1.5  # Pure rate of time preference
+  # Epstein-Zin preferences
+    psi0: 1.5  # Inter-temporal elasticity of substitution
+    gamma0: 10.  # Risk-aversion parameter
+  # Production function
+    alpha: 0.3  # Capital elasticity
+    delta: 0.1  # Annual capital depreciation rate
+  # Damage function
+    pi1: 0  # Climate damage factor coefficient
+    pi20: 0.236  # Climate damage factor coefficient
+
+########### Climate parameters ################################################
+  # Climate tipping random walk
+    eps0: 0.02  # (1/50)
+    epsscale0: 1.
+
+########### cdice carbon mass #############################################
+    phi12_: 0.054  # Rate of carbon diffusion from atmosphere to upper ocean
+    phi23_: 0.0082  # Rate of carbon diffusion from upper ocean to lower ocean
+    MATeq: 0.607  # Equilibrium mass of carbon in the Atmosphere
+    MUOeq: 0.489  # Equilibrium mass of carbon in the upper ocean
+    MLOeq: 1.281  # Equilibrium mass of carbon in the lower ocean
+
+########### cdice temperature #############################################
+    varphi1_: 0.137  # Temperature coefficient
+    varphi3_: 0.73  # Temperature coefficient
+    varphi4_: 0.00689  # Temperature coefficient
+    f2xco20: 3.45  # Radiative forcing parameter
+    t2xco20: 3.25  # Equilibrium climate temperature
+    MATbase: 0.607  # Preindustrial atmospheric carbon concentration
+
+########## Initial states #####################################################
+    k0: 2.926  # K0/(A0L0)
+    MAT0: 0.851  # [1000 GtC] Doris calibration
+    MUO0: 0.628  # [1000 GtC] Doris calibration
+    MLO0: 1.323  # [1000 GtC] Doris calibration
+    TAT0: 1.1  # [oC relative to the preindustrial] Doris calibration
+    TOC0: 0.27  # [oC relative to the preindustrial] Doris calibration
+    zeta_log0: 0.  # Initial stochastic shock on production in log
+    zetatilde_log0: 0.  # Initial stochastic shock on production in log
+    chi0: 0.  # Initial normal random variable in the stochastic TFP shock
+    tau0: 0.  # Initial time period (corresponding to 2015)
+
+########## Lower and upper bounds of the uncertain parameters #################
+    UQflag: True
+  # Pure rate of time preference
+    rho_lower: 1.
+    rho_upper: 2.
+  # Risk-aversion
+    gamma_lower: 5.
+    gamma_upper: 10.
+  # Intertemporal elasticity of substitution
+    psi_lower: 1.5
+    psi_upper: 2.0
+  # Persistency of the long-run risk
+    r_lower: 0.5
+    r_upper: 0.9
+  # Gaussian innovation scalers in stochastic TFP
+    varrho_lower: 1.75
+    varrho_upper: 5.25
+    varsigma_lower: 0.4
+    varsigma_upper: 1.2
+  # Damage function parameter
+    pi2_lower: 0.236
+    pi2_upper: 0.744
+  # Equilibrium climate sensitivity
+    t2xco2_lower: 1.5
+    t2xco2_upper: 4.5
+  # Radiative forcing
+    f2xco2_lower: 3.1
+    f2xco2_upper: 4.1
+
+########## Polynomial chaos expansions ########################################
+    poly_order: 4
+
+########## Gaussian process surrogate model ###################################
+    N_train_X: 400

@@ -1,0 +1,17 @@
+MSE:            0.017404353  MAE:            0.13192555  MSE_no_penalty: 0.017404353  MAE_no_penatly: 0.13192555
+MSE:            0.0023467797  MAE:            0.04844357  MSE_no_penalty: 0.0023467797  MAE_no_penatly: 0.04844357
+MSE:            0.0015865852  MAE:            0.039831962  MSE_no_penalty: 0.0015865852  MAE_no_penatly: 0.039831962
+MSE:            0.0013145625  MAE:            0.036256894  MSE_no_penalty: 0.0013145625  MAE_no_penatly: 0.036256894
+MSE:            0.00084209134  MAE:            0.02901881  MSE_no_penalty: 0.00084209134  MAE_no_penatly: 0.02901881
+MSE:            0.00059354154  MAE:            0.024362708  MSE_no_penalty: 0.00059354154  MAE_no_penatly: 0.024362708
+MSE:            0.00034213503  MAE:            0.018496891  MSE_no_penalty: 0.00034213503  MAE_no_penatly: 0.018496891
+MSE:            0.000109996035  MAE:            0.010487899  MSE_no_penalty: 0.000109996035  MAE_no_penatly: 0.010487899
+MSE:            3.257372e-05  MAE:            0.005707339  MSE_no_penalty: 3.257372e-05  MAE_no_penatly: 0.005707339
+MSE:            4.1166613e-06  MAE:            0.0020289556  MSE_no_penalty: 4.1166613e-06  MAE_no_penatly: 0.0020289556
+MSE:            6.019741e-07  MAE:            0.0007758699  MSE_no_penalty: 6.019741e-07  MAE_no_penatly: 0.0007758699
+MSE:            6.729509e-08  MAE:            0.00025941298  MSE_no_penalty: 6.729509e-08  MAE_no_penatly: 0.00025941298
+MSE:            1.1886615e-08  MAE:            0.00010902576  MSE_no_penalty: 1.1886615e-08  MAE_no_penatly: 0.00010902576
+MSE:            1.7292548e-08  MAE:            0.00013150113  MSE_no_penalty: 1.7292548e-08  MAE_no_penatly: 0.00013150113
+MSE:            7.7598505e-09  MAE:            8.809001e-05  MSE_no_penalty: 7.7598505e-09  MAE_no_penatly: 8.809001e-05
+MSE:            1.2514465e-08  MAE:            0.00011186807  MSE_no_penalty: 1.2514465e-08  MAE_no_penatly: 0.00011186807
+MSE:            8.4106375e-09  MAE:            9.170953e-05  MSE_no_penalty: 8.4106375e-09  MAE_no_penatly: 9.170953e-05

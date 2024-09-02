@@ -1,0 +1,280 @@
+# --------------------------------------------------------------------------- #
+# State variables
+# --------------------------------------------------------------------------- #
+states:
+  # ------------------------------------------------------------------------- #
+  # Economic state
+  # ------------------------------------------------------------------------- #
+  - name: kx_A  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.4685
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  - name: kx_D  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.4685
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  - name: rx_norm  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 2.538
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  
+  # ------------------------------------------------------------------------- #
+  # Climate states
+  # ------------------------------------------------------------------------- #
+  # Carbon mass
+  - name: MATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.851
+        stddev: 0.0
+        # stddev: 0.05  # For deterministic
+  - name: MUOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.628
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  - name: MLOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.323
+        stddev: 0.
+        # stddev: 0.25  # For deterministic
+
+  # Temperature
+  - name: TATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.1
+        stddev: 0.
+        # stddev: 0.05  # For deterministic
+  - name: TOCx
+    init:
+     distribution: truncated_normal
+     kwargs:
+        mean: 0.27
+        stddev: 0.
+
+  # ------------------------------------------------------------------------- #
+  # Time state variable
+  # ------------------------------------------------------------------------- #
+  - name: taux  # Computational time
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.  # Starting year is 2015
+        stddev: 0.
+
+
+# --------------------------------------------------------------------------- #
+# Policy variables
+# --------------------------------------------------------------------------- #
+policies:
+  - name: kplusy_A  # Investment policy
+    activation: tf.keras.activations.softplus
+
+  - name: kplusy_D  # Investment policy
+    activation: tf.keras.activations.softplus
+
+  - name: lambdy_A  # Consumption policy
+    activation: tf.keras.activations.softplus
+
+  - name: lambdy_D  # Consumption policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdpiy_A  # Consumption policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdpiy_D  # Consumption policy
+    activation: tf.keras.activations.softplus
+
+  - name: lambdxiy_A  # Consumption policy
+    activation: tf.keras.activations.softplus
+    
+  - name: lambdxiy_D  # Consumption policy
+    activation: tf.keras.activations.softplus
+
+  - name: ry_norm  # oil reserve in the next period
+    activation: tf.keras.activations.softplus
+
+  - name: ey_level_A  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.01
+      penalty_lower: 0.
+      upper: 4.0
+      penalty_upper: 0.1
+      
+  - name: ey_level_D  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.01
+      penalty_lower: 0.
+      upper: 4.0
+      penalty_upper: 0.1
+    
+  - name: piy_A  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+      upper: 0.49
+      penalty_upper: 0.1
+      
+  - name: piy_D  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+      upper: 0.49
+      penalty_upper: 0.1
+
+  - name: xiy_A  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+      upper: 0.49
+      penalty_upper: 0.1
+      
+  - name: xiy_D  # oil consumption this period
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.00001
+      penalty_lower: 0.
+      upper: 0.49
+      penalty_upper: 0.1
+
+#   - name: piy_nonneg  # oil consumption this period
+#     activation: tf.keras.activations.softplus
+    
+#   - name: xiy_nonneg  # oil consumption this period
+#     activation: tf.keras.activations.softplus
+    
+  - name: piy_xiy_nonneg_A
+    activation: tf.keras.activations.softplus
+    
+  - name: piy_xiy_nonneg_D
+    activation: tf.keras.activations.softplus
+    
+  # Lagrange multipliers
+  - name: nuATy
+    # activation: tf.keras.activations.linear
+    activation: tf.keras.activations.softplus  # Known to be negative
+  - name: nuUOy
+    activation: tf.keras.activations.linear
+  - name: nuLOy
+    activation: tf.keras.activations.linear
+  - name: etaATy
+    activation: tf.keras.activations.linear
+  - name: etaOCy
+    activation: tf.keras.activations.linear
+
+
+definitions:
+  # ------------------------------------------------------------------------- #
+  # Real and computational time
+  # ------------------------------------------------------------------------- #
+  - name: tau2t  # Scale back from tau to t
+  - name: tau2tauplus  # Update tau to tau+1
+
+  # ------------------------------------------------------------------------- #
+  # Exogenous parameters
+  # ------------------------------------------------------------------------- #
+  - name: tfp  # TFP
+  - name: tfp_coal
+  - name: tfp_green
+  - name: gr_tfp  # Growth rate of TFP
+  - name: lab  # Labor
+  - name: gr_lab  # Annual growth rate of labor
+  - name: beta_hat  # Growth adjusted discout factor
+  - name: beta  #  discout factor
+  - name: sigma  # Carbon intensity
+  - name: Eland  # Natural carbon emissions
+  - name: Eind  # Industrial emission
+  - name: Fex  # External radiative forcing
+  - name: b11  # Mass of carbon transmission
+  - name: b21  # Mass of carbon transmission
+  - name: b12  # Mass of carbon transmission
+  - name: b22  # Mass of carbon transmission
+  - name: b32  # Mass of carbon transmission
+  - name: b23  # Mass of carbon transmission
+  - name: b33  # Mass of carbon transmission
+  - name: c1  # Mass of carbon transmission
+  - name: c3  # Mass of carbon transmission
+  - name: c4
+
+  # ------------------------------------------------------------------------- #
+  # Economic variables
+  # ------------------------------------------------------------------------- #
+
+  - name: con_A  # Lagrange multiplier wrt. the budget constraint
+  - name: con_D  # Lagrange multiplier wrt. the budget constraint
+  - name: lambdR_A  # Lagrange multiplier wrt. the budget oil constraint
+  - name: lambdR_D  # Lagrange multiplier wrt. the budget oil constraint
+  - name: lambdpi_A  # Lagrange multiplier wrt. the budget oil constraint
+  - name: lambdpi_D  # Lagrange multiplier wrt. the budget oil constraint
+  - name: lambdxi_A
+  - name: lambdxi_D
+  - name: Omega_Nordhaus  # Damage function in Nordhaus (2008)
+  - name: dOmegadTAT_Nordhaus  # The first derivative of the Nordhaus' damage 
+  - name: energy_A
+  - name: energy_D
+  - name: energy_coal_A
+  - name: energy_coal_D
+  - name: energy_green_A
+  - name: energy_green_D
+  - name: energy_coal_helper_A
+  - name: energy_coal_helper_D
+  - name: energy_oil_A
+  - name: energy_oil_D
+  - name: ry_level
+  - name: rx_level
+  - name: piy_helper_A
+  - name: piy_helper_D
+  - name: energy_level_A
+  - name: energy_level_D
+  - name: ey_norm_A
+  - name: ey_norm_D
+#   - name: piy
+
+
+  # ------------------------------------------------------------------------- #
+  # State variables in period t+1
+  # ------------------------------------------------------------------------- #
+  - name: MATplus  # Mass of carbon in the atmosphere in period t+1
+  - name: MUOplus  # Mass of carbon in the upper ocean in period t+1
+  - name: MLOplus  # Mass of carbon in the lower ocean in period t+1
+  - name: TATplus  # Temperature in the atmosphere in period t+1
+  - name: TOCplus  # Temperature in the ocean in period t+1
+  # ------------------------------------------------------------------------- #
+  # Derivatives of the value function
+  # ------------------------------------------------------------------------- #
+  - name: dvdk_A
+  - name: dvdk_D
+  - name: dvdR_A
+  - name: dvdR_D
+  - name: dvdMAT_A
+  - name: dvdMUO_A
+  - name: dvdMLO_A
+  - name: dvdTAT_A
+  - name: dvdTOC_A
+  - name: dvdMAT_D
+  - name: dvdMUO_D
+  - name: dvdMLO_D
+  - name: dvdTAT_D
+  - name: dvdTOC_D
+  

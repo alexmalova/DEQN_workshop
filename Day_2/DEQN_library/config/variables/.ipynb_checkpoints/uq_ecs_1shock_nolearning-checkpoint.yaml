@@ -1,0 +1,278 @@
+# --------------------------------------------------------------------------- #
+# State variables
+# --------------------------------------------------------------------------- #
+states:
+  # ------------------------------------------------------------------------- #
+  # Economic state
+  # ------------------------------------------------------------------------- #
+  - name: k_tildex  # Capital stock in period t in effective labor units
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 2.926
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+
+  # ------------------------------------------------------------------------- #
+  # Climate states
+  # ------------------------------------------------------------------------- #
+  # Carbon mass
+  - name: MATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.851
+        stddev: 0.0
+        # stddev: 0.05  # For deterministic
+  - name: MUOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.628
+        stddev: 0.0
+        # stddev: 0.25  # For deterministic
+  - name: MLOx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.323
+        stddev: 0.
+        # stddev: 0.25  # For deterministic
+
+  # Temperature
+  - name: TATx
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 1.1
+        stddev: 0.
+        # stddev: 0.05  # For deterministic
+  - name: TOCx
+    init:
+     distribution: truncated_normal
+     kwargs:
+        mean: 0.27
+        stddev: 0.
+
+  # ------------------------------------------------------------------------- #
+  # Bayesian learning
+  # ------------------------------------------------------------------------- #
+  - name: mufx
+    init:
+     distribution: uniform
+     kwargs:
+        minval: 0.45
+        maxval: 0.73
+        # stddev: 0.05  # For deterministic
+  - name: Sfx
+    init:
+     distribution: uniform
+     kwargs:
+        minval: 0.01
+        maxval: 0.04
+
+  # ------------------------------------------------------------------------- #
+  # Pseudo states to propagate parametric uncertainty
+  # ------------------------------------------------------------------------- #
+  # Econ
+  - name: rhox  # Pure rate of time preference (0.01 <= rho0=0.015 <= 0.02)
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 0.01  # 0.01
+        maxval: 0.02 # 0.02
+  - name: gammax  # Arrow-Patt risk aversion (5 <= gamma <= gamma0=10)
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 2.5  # 2.5
+        maxval: 12.5 # 12.5
+  - name: psix  # Intertemporal elasticity of substitution (1.2 < psi0=1.5 <= 2)
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 1.2
+        maxval: 2.
+  - name: pi2x  # damage (0.00236 < psi0=1.5 <= 0.00744)
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 0.002 # 0.00236
+        maxval: 0.008 #0.007438
+
+
+#   - name: opt_ewma  # Optimality equation dummy
+
+  # ------------------------------------------------------------------------- #
+  # Time state variable
+  # ------------------------------------------------------------------------- #
+  - name: taux  # Computational time
+    init:
+      distribution: truncated_normal
+      kwargs:
+        mean: 0.  # Starting year is 2015
+        stddev: 0.
+
+
+# --------------------------------------------------------------------------- #
+# Policy variables
+# --------------------------------------------------------------------------- #
+policies:
+  - name: inv_tildey  # Investment policy
+    activation: tf.keras.activations.softplus
+
+  - name: con_tildey  # Consumption policy
+    activation: tf.keras.activations.softplus
+
+  - name: vlog_tildey  # Value function in log: vnorm_tilde = exp(vlog_tildey)
+    activation: tf.keras.activations.softplus
+    # activation: tf.keras.activations.linear
+
+
+  # Mitigation policy in [0, 1]
+  # 1 - muy >= 0 is ensured by an occasionally binding constraint; thus we
+  # avoid punishing the neural net when muy does not support the bounds.
+  # The below upper and lower bounds help the neural net.
+  - name: muy
+    activation: tf.keras.activations.softplus
+    bounds:
+      lower: 0.
+      penalty_lower: 0.
+      upper: 1.0
+      penalty_upper: 0.
+
+  # Lagrange multipliers
+  - name: nuATy
+    # activation: tf.keras.activations.linear
+    activation: tf.keras.activations.softplus  # Known to be negative
+  - name: nuUOy
+    activation: tf.keras.activations.linear
+  - name: nuLOy
+    activation: tf.keras.activations.linear
+    
+  - name: etaATy
+    activation: tf.keras.activations.linear
+
+#   - name: mu_etaATy
+#     activation: tf.keras.activations.linear
+# #   - name: etaATy
+# #     activation: tf.keras.activations.linear
+#   - name: std_etaATy
+#     activation: tf.keras.activations.softplus
+
+  - name: etaOCy
+    activation: tf.keras.activations.linear
+  - name: lambdmufy  # lagrange multiplier to posterior mean
+    activation: tf.keras.activations.linear
+  - name: lambdSfy  # lagrange multiplier to posterior variance
+    activation: tf.keras.activations.linear
+
+#   - name: mu_lambdbarfy  # lagrange multiplier to posterior mean
+#     activation: tf.keras.activations.linear
+# #   - name: lambdbarfy  # lagrange multiplier to posterior mean
+# #     activation: tf.keras.activations.linear
+#   - name: std_lambdbarfy  # lagrange multiplier to posterior mean
+#     activation: tf.keras.activations.softplus
+
+#   - name: lambdmuy
+#     activation: tf.keras.activations.softplus
+
+
+
+definitions:
+  # ------------------------------------------------------------------------- #
+  # Real and computational time
+  # ------------------------------------------------------------------------- #
+  - name: tau2t  # Scale back from tau to t
+  - name: tau2tauplus  # Update tau to tau+1
+
+  # ------------------------------------------------------------------------- #
+  # Exogenous parameters
+  # ------------------------------------------------------------------------- #
+  - name: tfp  # TFP
+  - name: gr_tfp  # Growth rate of TFP
+  - name: lab  # Labor
+  - name: gr_lab  # Annual growth rate of labor
+  - name: betat  # Growth adjusted discout factor
+  - name: sigma  # Carbon intensity
+  - name: theta1  # Cost coefficient of carbon mitigation
+  - name: Eland  # Natural carbon emissions
+  - name: Fex  # External radiative forcing
+  - name: phi32  # Mass of carbon transmission
+  - name: phi21  # Mass of carbon transmission
+  - name: phi12  # Mass of carbon transmission
+  - name: phi23  # Mass of carbon transmission
+  - name: varphi21
+  - name: varphi1
+#   - name: xi2
+  - name: varphi4
+  - name: varphi1C
+#   - name: psix
+
+  # ------------------------------------------------------------------------- #
+  # Economic variables
+  # ------------------------------------------------------------------------- #
+
+  - name: lambd  # Lagrange multiplier wrt. the budget constraint
+  - name: lambd_mu  # KKT multiplier wrt. the budget constraint
+#   - name: Omega  # Damage function in Weitzman (2012)
+#   - name: dOmegadTAT  # The first derivative of the Weitzman's damage function
+  - name: Omega_Nordhaus  # Damage function in Nordhaus (2008)
+  - name: dOmegadTAT_Nordhaus  # The first derivative of the Nordhaus' damage function
+  - name: Theta  # Mitigation cost function
+  - name: Theta_prime  # The first derivative of the mitigation cost function
+  - name: ygross_tilde  # Gross production
+  - name: ynet_tilde  # Net production where the climate damage is considered
+  - name: Eind  # Industrial emission
+  - name: carbontax  # Optimal carbon tax
+  - name: scc  # Social cost of carbon
+  - name: inv2ynet  # Ratio of investment to net output
+  - name: con2ynet  # Ratio of consumption to net output
+  - name: Theta2ynet  # Ratio of mitigation expenditure to net output
+  - name: scc2ynet  # Ratio of the social cost of carbon to gross output
+
+
+  # ------------------------------------------------------------------------- #
+  # Non-stochastic stationary steady state without climate
+  # ------------------------------------------------------------------------- #
+  - name: vlog_inf  # Non-stochastic steady state without climate value function in log
+  - name: inv_inf  # Non-stochastic steady state without climate investment policy
+  - name: con_inf  # Non-stochastic steady state without climate consumption policy
+  - name: lambd_inf  # Non-stochastic steady state without climate Lagrange multiplier
+
+  # ------------------------------------------------------------------------- #
+  # First-derivatives of the value function
+  # ------------------------------------------------------------------------- #
+  - name: dvdk_tilde_psi  # wrt. k
+  - name: dvdMAT_tilde_psi  # wrt. MAT
+  - name: dvdMUO_tilde_psi  # wrt. MUO
+  - name: dvdMLO_tilde_psi  # wrt. MLO
+  - name: dvdTAT_tilde_psi  # wrt. TAT
+  - name: dvdTOC_tilde_psi  # wrt. TOC
+  - name: dvdmuf_tilde_psi
+  - name: dvdSf_tilde_psi
+#   - name: dvdmu
+
+  # ------------------------------------------------------------------------- #
+  # State variables in period t+1
+  # ------------------------------------------------------------------------- #
+  - name: ktilde_plus  # Capital stock tomorrow
+  - name: MATplus  # Mass of carbon in the atmosphere in period t+1
+  - name: MUOplus  # Mass of carbon in the upper ocean in period t+1
+  - name: MLOplus  # Mass of carbon in the lower ocean in period t+1
+  - name: TATplus  # Temperature in the atmosphere in period t+1
+  - name: TOCplus  # Temperature in the ocean in period t+1
+
+  # ------------------------------------------------------------------------- #
+  # Bayesian learning
+  # ------------------------------------------------------------------------- #
+  - name: mufplus #Posterior mean
+  - name: Sfplus # Posterior variance
+  
+  - name: dTATplusdTAT
+  - name: dmufplusdTAT
+  - name: dSfplusdTAT
+  
+  - name: dTATplusdSf
+  - name: dmufplusdSf
+  - name: dSfplusdSf

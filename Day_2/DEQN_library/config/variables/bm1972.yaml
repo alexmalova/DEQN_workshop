@@ -1,0 +1,22 @@
+states:
+  - name: K_t  # Capital stock
+    init:
+      distribution: uniform
+      kwargs:
+        minval: 0.10
+        maxval: 1.
+
+policies:
+  - name: s_t  # Capital in the next period
+    # activation: tf.keras.activations.sigmoid
+
+
+definitions:
+  - name: Y_t  # Output
+  - name: K_tplus1 #capital nex period
+  - name: C_t # Consumption
+  - name: R_tplus1  #return on capital next period
+  - name: k_compute_infty
+  - name: Kplus_compute_analytic
+  - name: c_compute
+

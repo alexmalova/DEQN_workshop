@@ -1,0 +1,15 @@
+[2024-06-26 09:25:28,933][tensorflow][WARNING] - Detecting that an object or model or tf.train.Checkpoint is being deleted with unrestored values. See the following logs for the specific values in question. To silence these warnings, use `status.expect_partial()`. See https://www.tensorflow.org/api_docs/python/tf/train/Checkpoint#restorefor details about the status object returned by the restore function.
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).save_counter
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.1
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.2
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.3
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.4
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.5
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.6
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.7
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.8
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.9
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.10
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.11
+[2024-06-26 09:25:28,934][tensorflow][WARNING] - Value in checkpoint could not be found in the restored object: (root).optimizer._variables.12
+[2024-06-26 09:26:54,211][matplotlib.font_manager][INFO] - generated new fontManager

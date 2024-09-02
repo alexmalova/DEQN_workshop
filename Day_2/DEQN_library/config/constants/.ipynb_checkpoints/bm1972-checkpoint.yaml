@@ -1,0 +1,4 @@
+constants:
+    alpha: 0.36  # Capital share in the Cobb-Douglas production function
+    beta: 0.99  # Discount factor
+    delta: 1.0 # depreciation of capital
