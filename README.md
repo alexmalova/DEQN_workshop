@@ -1,7 +1,7 @@
 # Deep Equilibrium Nets for Solving Dynamic Stochastic Models (September 03 – 04, 2024)
 
-This is a 2-day Ph.D. workshop on the application of deep neural networks as a global solution method, held at the MCC during the summer break of 2024 (03.09-
-04.09.2024)
+This is a 2-day Ph.D. workshop on the application of deep neural networks as a global solution method, held at the [MCC](https://www.mcc-berlin.net/index.html) 03.09-
+04.09.2024.
 
 
 ## Course Objectives:
