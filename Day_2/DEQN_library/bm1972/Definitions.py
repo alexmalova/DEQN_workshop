@@ -28,6 +28,8 @@ def c_compute(state, policy_state):
     _c_compute = _K_tplus1**alpha - _K_tplus1
     return _c_compute
 
+############################################################################
+
 def Y_t(state, policy_state):
     """compute output today"""
     _K_t = State.K_t(state)
@@ -42,8 +44,6 @@ def K_tplus1(state, policy_state):
     
     _K_tplus1 = (1. - delta) * _K_t + _Y_t * _s_t
     return _K_tplus1
-
-
 
 def C_t(state, policy_state):
     """get consumption this period"""

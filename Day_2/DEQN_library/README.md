@@ -353,4 +353,13 @@ The master process is tasked with creating checkpoints and writing out tensorboa
 
 Since the worker processes don't write out their local state values, restarting a Horovod run in a way that it would continue on the exact same trajectory as without a restart is currently not possible (when restarting from a checkpoint, all workers will load the state values that the master checkpointed). However the worker seeds will be different, so after a few episodes the different workers will again work on a 'different part of the state space'.
 
-python post_process_ramsey.py STARTING_POINT=LATEST hydra.run.dir=runs/ramsey/2024-06-26/12-32-21
+## How to run tensorboard
+You need to go to the runs folder thta contains that path to the solution. You go to the folder with the time stamp with the model and press right button 'Copy path'. The path should look like this: DEQN_workshop/Day_2/DEQN_library/runs/bm1972/2024-09-03/13-13-03
+
+Then in the terminal window you execure the following commands:
+- rm tensorboard_logdir
+This command helps you to remove any previous links that were stored. If there was no links you get an error message and it is fine.
+- ln -s DEQN_workshop/Day_2/DEQN_library/runs/bm1972/2024-09-03/13-13-03 tensorborad_logdir
+This command gets you started with the tensorboard
+
+Then you go to the Louncher and press tensorboard icon (top left). It should open in the new browser tab.
