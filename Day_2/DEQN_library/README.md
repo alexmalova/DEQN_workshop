@@ -299,8 +299,10 @@ hydra will pick up the output config.yaml inside the .hydra folder.
 Then just import Parameters in a script and call it with the given checkpoint name. For example:
 
 ```
-export USE_CONFIG_FROM_RUN_DIR=<WORKING_DIRECTORY_OF_RUN> && python post_process.py STARTING_POINT=LATEST hydra.run.dir=$USE_CONFIG_FROM_RUN_DIR
+export USE_CONFIG_FROM_RUN_DIR=runs/bm1972/2024-09-03/13-13-03 && python post_process.py STARTING_POINT=LATEST hydra.run.dir=$USE_CONFIG_FROM_RUN_DIR
 ```
+
+export USE_CONFIG_FROM_RUN_DIR=runs/bm1972/2024-09-03/13-13-03 && python post_process_bm1972.py STARTING_POINT=LATEST hydra.run.dir=$USE_CONFIG_FROM_RUN_DIR
 
 Using this, the exact same settings will be used to re-initialize the model as was used in the original run and then
 any kind of post-processing can be done (e.g. simulate more, plot, etc..).

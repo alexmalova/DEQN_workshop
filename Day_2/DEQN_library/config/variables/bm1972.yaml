@@ -4,7 +4,7 @@ states:
       distribution: uniform
       kwargs:
         minval: 0.10
-        maxval: 1.
+        maxval: 1.0
 
 policies:
   - name: s_t  # Capital in the next period
